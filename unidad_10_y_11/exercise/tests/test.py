@@ -1,10 +1,14 @@
+# se ven muy mal los imports pero para que la librería funcione hay que poner
+# muchos paths en medio porque sino no encuentra los archivos
 import unittest
 import sys
 import os
 import datetime
 from datetime import datetime
 from pathlib import Path
-sys.path.append('/home/manu/desktop2/python/prismarun/tema11/exercise')
+DIR = os.path.dirname(os.path.normpath(__file__)).rstrip("tests")
+#'/home/manu/desktop2/python/prismarun/unidades_2_14/unidad_10_y_11/exercise'
+sys.path.append(DIR)
 from docs_from_tests.instrument_call_hierarchy import instrument_and_import_package,initialise_call_hierarchy,finalise_call_hierarchy
 import functions.functions as f
 from assets.text_append import append_text, sequence_diagram_filename
