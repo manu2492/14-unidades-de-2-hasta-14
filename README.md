@@ -1,2 +1,5 @@
-## Pido disculpas por la falta de readmes
-## este fin de semana los tendre listos.
+# Alkemy ejercicios de la unidad 2 a la 14
+
+## Cada unidad tiene su propio **readme** 
+Los invito a leerlos para un mayor entendimiento del código.
+
