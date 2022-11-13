@@ -8,3 +8,6 @@ sea posible generar un mensaje de log de severidad error.
 Guardar los logs en el archivo results.log
 Resolver utilizando el logger por defecto que se incluye en el módulo
 Logging de la librería estándar de Python.
+
+1. exercise1.py: configuración básica con logging
+2. exercise2.py: configurando un logging con un archivo .cfg
