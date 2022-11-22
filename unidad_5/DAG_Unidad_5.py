@@ -44,7 +44,7 @@ def read_top10():
         # Save data frame in Excel format - Completar tu propia ubicación para guardar el archivo de salida
         logger.info("sabing")
 
-        to_countries_df.to_csv(f'{DIR}/top10_medals_by_country.csv')
+        to_countries_df.to_excel(f'{DIR}/top10_medals_by_country.xlsx')
 
         logger.info("Success")
     except Exception:
