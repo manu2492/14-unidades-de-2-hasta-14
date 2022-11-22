@@ -1,7 +1,7 @@
-from main import file
 import logging as log
 import logging.config
 import os
+from main import file
 
 # DIR = os.path.dirname(os.path.normpath(__file__))
 
