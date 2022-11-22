@@ -13,11 +13,24 @@ DIR = os.path.dirname(os.path.normpath(__file__)).rstrip('/dags')
 
 
 # create logger
-logger = log.getLogger("airflow.task")
+logger = log.getLogger(__name__)
+logger.setLevel(log.DEBUG)
+# handlers
+console_handler = log.StreamHandler()
+file_handler = log.FileHandler(f'{DIR}/logs/unidad_5.log')
+# levels
+console_handler.setLevel(log.INFO)
+file_handler.setLevel(log.INFO)
+# formatters
+formatter = log.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+console_handler.setFormatter(formatter)
+file_handler.setFormatter(formatter)
+
+logger.addHandler(console_handler)
+logger.addHandler(file_handler)
 
 
 # defining DAG arguments
-
 default_args = {
     'retries': 5,
     'retry_delay': timedelta(seconds=5),
@@ -28,7 +41,6 @@ default_args = {
 def read_top10():
 
     # Read CSV from web
-    #url = F"{DIR}/medals.csv"
     url = "http://winterolympicsmedals.com/medals.csv"
     try:
         logger.info("reading")
@@ -41,14 +53,14 @@ def read_top10():
         # Convert pandas series to data frame
         to_countries_df = top_countries.to_frame()
 
-        # Save data frame in Excel format - Completar tu propia ubicación para guardar el archivo de salida
+        # Save data frame in Excel format
         logger.info("sabing")
 
         to_countries_df.to_excel(f'{DIR}/top10_medals_by_country.xlsx')
 
         logger.info("Success")
     except Exception:
-        logger.error("Fail")
+        logger.error("Fail", exc_info=True)
 
 
 def process():
@@ -69,16 +81,10 @@ with DAG(
     start_date=datetime(2022, 10, 10)
 ) as dag:
     query = PythonOperator(task_id='query',
-                           python_callable=read_top10) 
+                           python_callable=read_top10)
     pandas_process = PythonOperator(task_id='pandas_process',
                                     python_callable=process)
     load = PythonOperator(task_id='load',
                           python_callable=process2)
 
     query >> pandas_process >> load
-
-
-
-
-
-   
